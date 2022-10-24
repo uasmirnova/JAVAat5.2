@@ -35,15 +35,17 @@ public class DataGenerator {
                 .statusCode(200);
     }
 
-    private static String fakerLogin() {
+    public static String fakerLogin() {
+        Faker faker = new Faker();
         return faker.name().firstName().toLowerCase();
     }
 
-    private static String fakerPassword() {
+    public static String fakerPassword() {
+        Faker faker = new Faker();
         return faker.internet().password();
     }
 
-    private static String fakerStatus(boolean status) {
+    public static String fakerStatus(boolean status) {
         if (status) {
             return "active";
         } else {
@@ -51,9 +53,34 @@ public class DataGenerator {
         }
     }
 
-    public Info activeUser() {
+    public static Info activeUser() {
         Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(true));
         regUser(user);
         return user;
+    }
+
+    public static Info blockedUser() {
+        Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(false));
+        regUser(user);
+        return user;
+    }
+
+    public static Info notRegisteredUser() {
+        Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(true));
+        return user;
+    }
+
+    public static Info invalidLoginUser() {
+        String login = fakerLogin();
+        Info user = new Info(login, fakerPassword(), fakerStatus(true));
+        regUser(user);
+        return new Info(login, fakerPassword(), fakerStatus(true));
+    }
+
+    public static Info invalidPasswordUser() {
+        String password = fakerPassword();
+        Info user = new Info(fakerLogin(), password, fakerStatus(true));
+        regUser(user);
+        return new Info(fakerLogin(), password, fakerStatus(true));
     }
 }
