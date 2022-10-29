@@ -45,42 +45,34 @@ public class DataGenerator {
         return faker.internet().password();
     }
 
-    public static String fakerStatus(boolean status) {
-        if (status) {
-            return "active";
-        } else {
-            return "blocked";
-        }
-    }
-
     public static Info activeUser() {
-        Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(true));
+        Info user = new Info(fakerLogin(), fakerPassword(), "active");
         regUser(user);
         return user;
     }
 
     public static Info blockedUser() {
-        Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(false));
+        Info user = new Info(fakerLogin(), fakerPassword(), "blocked");
         regUser(user);
         return user;
     }
 
     public static Info notRegisteredUser() {
-        Info user = new Info(fakerLogin(), fakerPassword(), fakerStatus(true));
+        Info user = new Info(fakerLogin(), fakerPassword(), "active");
         return user;
     }
 
     public static Info invalidLoginUser() {
         String login = fakerLogin();
-        Info user = new Info(login, fakerPassword(), fakerStatus(true));
+        Info user = new Info(login, fakerPassword(), "active");
         regUser(user);
-        return new Info(login, fakerPassword(), fakerStatus(true));
+        return new Info(login, fakerPassword(), "active");
     }
 
     public static Info invalidPasswordUser() {
         String password = fakerPassword();
-        Info user = new Info(fakerLogin(), password, fakerStatus(true));
+        Info user = new Info(fakerLogin(), password, "active");
         regUser(user);
-        return new Info(fakerLogin(), password, fakerStatus(true));
+        return new Info(fakerLogin(), password, "active");
     }
 }
